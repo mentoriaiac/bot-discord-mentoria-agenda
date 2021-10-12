@@ -25,7 +25,7 @@ class Calendar(commands.Cog):
     @commands.command(brief="Retorna os agendamento de estudo da semana atual")
     async def agenda_semana(self, ctx):
         """
-        usage: >agenda_semana
+        usage: /agenda_semana
         """
         try:
             eventos = list_events.getEventsWeek()

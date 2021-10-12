@@ -21,7 +21,7 @@ class Calendar(commands.Cog):
     @commands.command(brief="Criar um evento no google calendar")
     async def criar_agenda(self, ctx, data=None, hora=None):
         """
-        usage: >criar_agenda
+        usage: /criar_agenda
 
         """
         event_name = ""
@@ -110,7 +110,7 @@ class Calendar(commands.Cog):
         except Exception as e:
             embed=discord.Embed(title=f"Erro ao criar o evento:  {event_name}.", color=0xff0000)
             await ctx.send(embed=embed)
-            await logging.error(e)
+            logging.error(e)
             await sent.delete()
 
 

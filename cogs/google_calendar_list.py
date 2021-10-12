@@ -25,7 +25,7 @@ class Calendar(commands.Cog):
     @commands.command(brief="Retorna os agendamento de estudo do dia atual")
     async def agenda(self, ctx):
         """
-        usage: >agenda
+        usage: /agenda
 
         """
 
