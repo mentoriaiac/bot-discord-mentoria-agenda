@@ -1,0 +1,21 @@
+[{
+    "discord": {
+        "token": "WjQ3MTc5NTA.................8j3KiSh",
+        "notification_channel": 120000000000000000,
+        "role_to_mention": 1234,
+        "timeout_response": 60,
+        "prefix": ">"
+    },
+    "google": {
+        "credentials": "key.json",
+        "scopes": "https://www.googleapis.com/auth/calendar",
+        "subject": "user_id@project_id.iam.gserviceaccount.com"
+    },
+    "postgres": {
+        "user": "postgres",
+        "password": "password",
+        "database": "database",
+        "host": "127.0.0.1" #sem a porta
+    }
+
+}]

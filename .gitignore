@@ -1,0 +1,6 @@
+config.json
+__pycache__/
+venv/
+.idea/
+key.json
+discord.log
