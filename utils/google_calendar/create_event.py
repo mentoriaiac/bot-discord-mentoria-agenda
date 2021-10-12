@@ -1,8 +1,11 @@
 from datetime import datetime, timedelta
 from utils.google_calendar.cal_setup import get_calendar_service
+from utils import config as cfg
 import logging
 
 #logging.basicConfig(level=logging.DEBUG)
+
+CALENDAR_ID = cfg.config[0]['google']["calendar_id"]
 
 def createEvent(eventName, eventDate, EventLocation, EventDescription):
    service = get_calendar_service()
@@ -11,8 +14,7 @@ def createEvent(eventName, eventDate, EventLocation, EventDescription):
    start = data.isoformat()
    end = (data + timedelta(hours=1)).isoformat()
 
-   event_result = service.events().insert(calendarId='iici0lagcvqc7dtarsjpqmg00c@group.calendar.google.com',
-       body={
+   event_result = service.events().insert(calendarId=CALENDAR_ID,body={
            "summary": eventName,
            "description": EventDescription,
            "location": EventLocation,

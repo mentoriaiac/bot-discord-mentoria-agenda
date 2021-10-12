@@ -10,6 +10,7 @@ handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w'
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
 
+CALENDAR_ID = cfg.config[0]['google']["calendar_id"]
 def getEvents():
    service = get_calendar_service()
    # Call the Calendar API
@@ -19,7 +20,7 @@ def getEvents():
    end_date = datetime.datetime(dt.year,  dt.month,  dt.day, 23, 30, 59, 0,tzinfo=BR).isoformat() 
 
    events_result = service.events().list(
-       calendarId='iici0lagcvqc7dtarsjpqmg00c@group.calendar.google.com', timeMin=start_date, timeMax=end_date,
+       calendarId=CALENDAR_ID, timeMin=start_date, timeMax=end_date,
        maxResults=10, singleEvents=True,
        orderBy='startTime').execute()
    events = events_result.get('items', [])
@@ -39,7 +40,7 @@ def getEventsWeek():
    end_date = datetime.datetime(lastdayofweek.year,  lastdayofweek.month,  lastdayofweek.day, 23, 30, 59, 0,tzinfo=BR).isoformat() 
 
    events_result = service.events().list(
-       calendarId='iici0lagcvqc7dtarsjpqmg00c@group.calendar.google.com', timeMin=start_date, timeMax=end_date,
+       calendarId=CALENDAR_ID, timeMin=start_date, timeMax=end_date,
        maxResults=10, singleEvents=True,
        orderBy='startTime').execute()
    events = events_result.get('items', [])
