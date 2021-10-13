@@ -44,7 +44,7 @@ class Calendar(commands.Cog):
 
     @tasks.loop(minutes=60.0)
     async def calendar_cron(self):
-        if datetime.now(tz=cfg.TZ).hour == 21:
+        if datetime.now(tz=cfg.TZ).hour == 9:
             await self.bot.wait_until_ready()
             channel = self.bot.get_channel(
                 cfg.config[0]['discord']['notification_channel'])
