@@ -21,7 +21,7 @@ class Calendar(commands.Cog):
     @commands.command(brief="Criar um evento no google calendar")
     async def criar_agenda(self, ctx, data=None, hora=None):
         """
-        usage: /criar_agenda
+        usage: >criar_agenda
 
         """
         event_name = ""
