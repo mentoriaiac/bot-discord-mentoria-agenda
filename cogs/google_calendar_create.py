@@ -42,7 +42,7 @@ class Calendar(commands.Cog):
             
 
         embed = discord.Embed(
-            title="Qual assunto do evento?",
+            title="Qual assunto do evento? | Ex: Terraform: Trabalhar na issue #9 do iac-module-compute",
             description="Responda em até 2 minutos!!",
         )
         sent = await ctx.send(embed=embed, delete_after=event_response_timout)
