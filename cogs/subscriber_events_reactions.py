@@ -39,11 +39,11 @@ class Calendar(commands.Cog):
                     )
                     embed = discord.Embed(
                         title="📚 Lembrete de estudo :loudspeaker: ",
-                        description=f"**Você escolheu ser aviso de um evento**: ```{calendar[0]}```",
+                        description=f"**Obrigado, fique à vontade para participar do evento**: ```{calendar[0]}```",
                     )
                     embed.add_field(
                         name=f"Descrição:",
-                        value=f"Nosso evento vai ocorrer no canal de voz!!",
+                        value=f"Nosso evento vai ocorrer no canal de voz do discord da MentoriaIac",
                         inline=False,
                     )
                     await user.send(embed=embed)
