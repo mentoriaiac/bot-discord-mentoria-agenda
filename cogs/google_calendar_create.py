@@ -4,6 +4,7 @@ import discord
 import datetime, re, asyncio
 from utils.google_calendar import create_event as event
 from utils import config as cfg
+from utils.discord_api import events_create
 from datetime import date
 import logging
 from dateutil.parser import parse
@@ -63,7 +64,7 @@ class Calendar(commands.Cog):
                 dt_obj.month,
                 dt_obj.day,
                 dt_obj.hour,
-                0,
+                dt_obj.minute,
                 00,
                 0,
                 tzinfo=cfg.TZ,
@@ -94,6 +95,9 @@ class Calendar(commands.Cog):
             dt = datetime.datetime.strptime(
                 str(res["start"]["dateTime"]), "%Y-%m-%dT%H:%M:%S%z"
             )
+            
+            events_create.create_event(res["summary"], res["summary"], res["start"]["dateTime"])
+            
             await self.bot.pg_con.execute(
                 "INSERT INTO events (message_id, calendar_id, date_time, event_name, event_link ) VALUES ($1, $2, $3, $4, $5)",
                 message_sent.id,
@@ -104,6 +108,10 @@ class Calendar(commands.Cog):
             )
             await ctx.message.delete()
                 
+        except events_create.requests.exceptions.RequestException as e:
+            embed=discord.Embed(title=f"Erro ao criar o Evento no discord", color=0xffc800)
+            await ctx.send(embed=embed) 
+        
         except asyncio.TimeoutError:
             embed=discord.Embed(title=f"Agendamento cancelado por falta de reposta.", color=0xffc800)
             await ctx.send(embed=embed)               
