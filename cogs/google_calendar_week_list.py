@@ -35,8 +35,8 @@ class Calendar(commands.Cog):
                 embed = discord.Embed(
                     title="📚 Agenda de Estudos :loudspeaker: ")
                 embed.add_field(
-                    name=f"**:cold_sweat: Sem Agenda**",
-                    value=f"Use ```>criar_agenda```  e agende um estudo, bora aprender!! ",
+                    name="**:cold_sweat: Sem Agenda**",
+                    value="Use ```>criar_agenda```  e agende um estudo, bora aprender!! ",
                     inline=False,
                 )
                 embed.set_footer(
@@ -74,7 +74,7 @@ class Calendar(commands.Cog):
         except Exception as e:
             logging.error(e)
             embed = discord.Embed(
-                title=f"Erro ao listar os eventos", color=0xFF0000)
+                title="Erro ao listar os eventos", color=0xFF0000)
             await ctx.send(embed=embed)
 
 

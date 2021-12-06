@@ -1,18 +1,18 @@
-from typing import Pattern
 from discord.ext import commands
 import discord
-import datetime, re, asyncio
+import datetime
+import re
+import asyncio
 from utils.google_calendar import create_event as event
 from utils import config as cfg
 from utils.discord_api import events_create
-from datetime import date
 import logging
 from dateutil.parser import parse
 
 
-date_pattern = re.compile("^data:[0-3]?[0-9].[0-3]?[0-9].(?:[0-9]{2})?[0-9]{2}$")
+date_pattern = re.compile(
+    "^data:[0-3]?[0-9].[0-3]?[0-9].(?:[0-9]{2})?[0-9]{2}$")
 hour_pattern = re.compile("^hora:([0-1]?[0-9]|2[0-3]):[0-5][0-9]$")
-
 
 
 class Calendar(commands.Cog):
@@ -25,7 +25,7 @@ class Calendar(commands.Cog):
         usage: >criar_agenda
 
         """
-        event_name = ""
+
         event_response_timout = cfg.config[0]['discord']["timeout_response"]
         if not data:
             embed = discord.Embed(
@@ -40,7 +40,6 @@ class Calendar(commands.Cog):
             )
             await ctx.send(embed=embed, delete_after=60)
             return
-            
 
         embed = discord.Embed(
             title="Qual assunto do evento? | Ex: Terraform: Trabalhar na issue #9 do iac-module-compute",
@@ -69,7 +68,6 @@ class Calendar(commands.Cog):
                 0,
                 tzinfo=cfg.TZ,
             )
-            event_name = msg.content
             if not date_pattern.match(data) or not hour_pattern.match(hora):
                 await ctx.reply("Ajuste a data ou a hora!")
                 return
@@ -80,9 +78,10 @@ class Calendar(commands.Cog):
                 msg.content,
             )
             data = parse(res["start"]["dateTime"])
-            embed = discord.Embed( title="Evento criado!!", colour=discord.Colour(0x7ED321) )
-            embed.add_field( name="Evento: ",   value=f"```{res['summary']}```", inline=False,
-            )
+            embed = discord.Embed(title="Evento criado!!",
+                                  colour=discord.Colour(0x7ED321))
+            embed.add_field(name="Evento: ",   value=f"```{res['summary']}```", inline=False,
+                            )
             embed.add_field(
                 name="Data:",
                 value=f"{data.strftime('%d/%m/%Y - %H:%M')} - Hora de Brasilia",
@@ -95,9 +94,10 @@ class Calendar(commands.Cog):
             dt = datetime.datetime.strptime(
                 str(res["start"]["dateTime"]), "%Y-%m-%dT%H:%M:%S%z"
             )
-            
-            events_create.create_event(res["summary"], res["summary"], res["start"]["dateTime"])
-            
+
+            events_create.create_event(
+                res["summary"], res["summary"], res["start"]["dateTime"])
+
             await self.bot.pg_con.execute(
                 "INSERT INTO events (message_id, calendar_id, date_time, event_name, event_link ) VALUES ($1, $2, $3, $4, $5)",
                 message_sent.id,
@@ -107,20 +107,23 @@ class Calendar(commands.Cog):
                 res["htmlLink"],
             )
             await ctx.message.delete()
-                
+
         except events_create.requests.exceptions.RequestException as e:
-            embed=discord.Embed(title=f"Erro ao criar o Evento no discord", color=0xffc800)
-            await ctx.send(embed=embed) 
-        
+            embed = discord.Embed(
+                title="Erro ao criar o Evento no discord", color=0xffc800)
+            await ctx.send(embed=embed)
+            logging.error(e)
+
         except asyncio.TimeoutError:
-            embed=discord.Embed(title=f"Agendamento cancelado por falta de reposta.", color=0xffc800)
-            await ctx.send(embed=embed)               
+            embed = discord.Embed(
+                title="Agendamento cancelado por falta de reposta.", color=0xffc800)
+            await ctx.send(embed=embed)
         except Exception as e:
-            embed=discord.Embed(title=f"Erro ao criar o evento:  {event_name}.", color=0xff0000)
+            embed = discord.Embed(
+                title="Erro ao criar o evento:  {event_name}.", color=0xff0000)
             await ctx.send(embed=embed)
             logging.error(e)
             await sent.delete()
-
 
 
 def setup(bot):

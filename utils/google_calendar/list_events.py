@@ -45,11 +45,11 @@ def getEventsWeek():
 
     BR = tz.gettz('America/Sao_Paulo')
     start_date = datetime.datetime(
-        firstdayofweek.year, 
-        firstdayofweek.month, 
+        firstdayofweek.year,
+        firstdayofweek.month,
         firstdayofweek.day, 6, 0, 00, 0, tzinfo=BR).isoformat()
     end_date = datetime.datetime(
-        lastdayofweek.year,  
+        lastdayofweek.year,
         lastdayofweek.month,
         lastdayofweek.day, 23, 30, 59, 0, tzinfo=BR).isoformat()
 

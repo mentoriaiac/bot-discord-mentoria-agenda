@@ -9,11 +9,25 @@ bot = commands.Bot(command_prefix=cfg.config[0]['discord']['prefix'],
 
 
 async def create_database_pool():
-    bot.pg_con = await asyncpg.create_pool(user=cfg.config[0]['postgres']['user'], password=cfg.config[0]['postgres']['password'], database=cfg.config[0]['postgres']['database'], host=cfg.config[0]['postgres']['host'], port=5432)
+    bot.pg_con = await asyncpg.create_pool(user=cfg.config[0]['postgres']['user'],
+                                           password=cfg.config[0]['postgres']['password'],
+                                           database=cfg.config[0]['postgres']['database'],
+                                           host=cfg.config[0]['postgres']['host'],
+                                           port=5432)
     await bot.pg_con.execute(
-        "CREATE TABLE IF NOT EXISTS Events (id  SERIAL PRIMARY KEY, message_id bigint, calendar_id text, date_time timestamp with time zone, event_name text , event_link text, notified boolean);")
+        """CREATE TABLE IF NOT EXISTS Events (id  SERIAL PRIMARY KEY,
+        message_id bigint,
+        calendar_id text,
+        date_time timestamp with time zone,
+        event_name text ,
+        event_link text,
+        notified boolean);""")
     await bot.pg_con.execute(
-        "CREATE TABLE IF NOT EXISTS Notifications (id SERIAL PRIMARY KEY, user_id bigint, message_id bigint, calendar_id text, event_link text );")
+        """CREATE TABLE IF NOT EXISTS Notifications (id SERIAL PRIMARY KEY,
+           user_id bigint,
+           message_id bigint,
+           calendar_id text,
+           event_link text );""")
 
 
 @bot.event
