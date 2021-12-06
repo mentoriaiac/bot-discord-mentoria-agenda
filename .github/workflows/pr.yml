@@ -21,6 +21,10 @@ jobs:
         with:
           max-line-length: "150"
       
+      - run: |
+          cp config.json.example config.json
+          cp key.json.example key.json
+
       - name: Security check - Bandit
         uses: ./
 
