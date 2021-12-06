@@ -1,5 +1,6 @@
 from discord.ext import commands
-import discord, datetime
+import discord
+import datetime
 from dateutil.parser import parse
 from utils import config as cfg
 from datetime import date
@@ -31,7 +32,8 @@ class Calendar(commands.Cog):
             eventos = list_events.getEventsWeek()
 
             if not eventos:
-                embed = discord.Embed(title="📚 Agenda de Estudos :loudspeaker: ")
+                embed = discord.Embed(
+                    title="📚 Agenda de Estudos :loudspeaker: ")
                 embed.add_field(
                     name=f"**:cold_sweat: Sem Agenda**",
                     value=f"Use ```>criar_agenda```  e agende um estudo, bora aprender!! ",
@@ -71,7 +73,8 @@ class Calendar(commands.Cog):
             await ctx.send(embed=embed)
         except Exception as e:
             logging.error(e)
-            embed = discord.Embed(title=f"Erro ao listar os eventos", color=0xFF0000)
+            embed = discord.Embed(
+                title=f"Erro ao listar os eventos", color=0xFF0000)
             await ctx.send(embed=embed)
 
 

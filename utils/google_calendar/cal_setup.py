@@ -8,14 +8,15 @@ SCOPES = [cfg.config[0]['google']["scopes"]]
 SERVICE_ACCOUNT_FILE = cfg.config[0]['google']["credentials"]
 SUBJECT = cfg.config[0]['google']["subject"]
 
+
 def get_calendar_service():
-    credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+    credentials = service_account.Credentials.from_service_account_file(
+        SERVICE_ACCOUNT_FILE, scopes=SCOPES)
     delegated_credentials = credentials.with_subject(SUBJECT)
 
     if not credentials or not credentials.valid:
-       print("Credeciais google é invalida")
+        print("Credeciais google é invalida")
 
     service = build('calendar', 'v3', credentials=delegated_credentials)
 
-    return service   
-
+    return service

@@ -5,11 +5,11 @@ from datetime import date, datetime
 from dateutil.parser import parse
 import discord
 
+
 async def notify(channel):
 
     eventos = list_events.getEvents()
     data = date.today().strftime("%d %b %Y")
-    
 
     if not eventos:
         embed = discord.Embed(
