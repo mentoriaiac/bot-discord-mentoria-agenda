@@ -17,7 +17,7 @@
         "user": "postgres",
         "password": "password",
         "database": "database",
-        "host": "127.0.0.1" #sem a porta
+        "host": "127.0.0.1"
     }
 
 }]
