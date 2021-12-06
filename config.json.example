@@ -4,7 +4,7 @@
         "notification_channel": 120000000000000000,
         "role_to_mention": 1234,
         "timeout_response": 60,
-        "prefix": ">"
+        "prefix": ">",
         "guild": "000000000000000",
         "voice_channel_id": "00000000000000"
     },
