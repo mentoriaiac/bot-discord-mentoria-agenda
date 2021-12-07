@@ -25,7 +25,3 @@ jobs:
           cp config.json.example config.json
           cp key.json.example key.json
 
-      - name: Security check - Bandit
-        uses: ./
-        with:
-          ignore_failure: true
