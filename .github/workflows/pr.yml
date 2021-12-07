@@ -27,4 +27,5 @@ jobs:
 
       - name: Security check - Bandit
         uses: ./
-
+        with:
+          ignore_failure: true
