@@ -95,9 +95,11 @@ class Calendar(commands.Cog):
                 str(res["start"]["dateTime"]), "%Y-%m-%dT%H:%M:%S%z"
             )
 
-            events_create.create_event(
-                res["summary"], res["summary"], res["start"]["dateTime"])
-
+            res_discord_event = events_create.create_event(
+                msg.content, msg.content, date.isoformat())
+            if res_discord_event.status_code == 200:
+                print("Evento criado com sucesso!")
+                
             await self.bot.pg_con.execute(
                 "INSERT INTO events (message_id, calendar_id, date_time, event_name, event_link ) VALUES ($1, $2, $3, $4, $5)",
                 message_sent.id,
@@ -120,7 +122,7 @@ class Calendar(commands.Cog):
             await ctx.send(embed=embed)
         except Exception as e:
             embed = discord.Embed(
-                title="Erro ao criar o evento:  {event_name}.", color=0xff0000)
+                title=f"Erro ao criar o evento:  {msg.content}.", color=0xff0000)
             await ctx.send(embed=embed)
             logging.error(e)
             await sent.delete()
