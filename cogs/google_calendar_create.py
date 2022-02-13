@@ -99,7 +99,7 @@ class Calendar(commands.Cog):
                 msg.content, msg.content, date.isoformat())
             if res_discord_event.status_code == 200:
                 print("Evento criado com sucesso!")
-                
+
             await self.bot.pg_con.execute(
                 "INSERT INTO events (message_id, calendar_id, date_time, event_name, event_link ) VALUES ($1, $2, $3, $4, $5)",
                 message_sent.id,

@@ -26,11 +26,9 @@ def create_event(name, description, start_time):
         headers = {
             'Authorization': f"Bot {discord_token}",
             'Content-Type': 'application/json',
-        }       
+        }
         response = requests.request("POST", url, headers=headers, data=payload)
-        
 
-                
     except Exception as e:
         print(f"Erro ao criar evento: {e}")
         print(url)
