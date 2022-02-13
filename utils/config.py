@@ -9,9 +9,5 @@ Data: {} - Hora de Brasilia
 ```
 """
 
-
-
 with open('config.json') as f:
     config = json.load(f)
-
-

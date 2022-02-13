@@ -1,5 +1,5 @@
 from discord.ext import commands
-import discord, datetime
+import discord
 from dateutil.parser import parse
 from datetime import date
 from utils import config as cfg
@@ -32,10 +32,11 @@ class Calendar(commands.Cog):
         try:
             eventos = list_events.getEvents()
             if not eventos:
-                embed = discord.Embed(title="📚 Agenda de Estudos :loudspeaker: ")
+                embed = discord.Embed(
+                    title="📚 Agenda de Estudos :loudspeaker: ")
                 embed.add_field(
-                    name=f"**:cold_sweat: Sem Agenda**",
-                    value=f"Use ```>criar_agenda```  e agende um estudo, bora aprender!! ",
+                    name="**:cold_sweat: Sem Agenda**",
+                    value="Use ```>criar_agenda```  e agende um estudo, bora aprender!! ",
                     inline=False,
                 )
                 embed.set_footer(
@@ -43,12 +44,6 @@ class Calendar(commands.Cog):
                 )
                 await ctx.send(embed=embed)
                 return
-            dt = datetime.datetime.now(tz=cfg.TZ)
-            week_number = dt.isocalendar()[1]
-            firstdayofweek = datetime.datetime.strptime(
-                f"{dt.year}-W{int(week_number)}-1", "%Y-W%W-%w"
-            ).date()
-            lastdayofweek = firstdayofweek + datetime.timedelta(days=6.9)
             data = date.today().strftime("%d %b %Y")
             indice_da_semana = date.today().weekday()
             dia_da_semana = DIAS[indice_da_semana]
@@ -59,7 +54,7 @@ class Calendar(commands.Cog):
             for event in eventos:
                 data = parse(event["start"]["dateTime"])
                 embed.add_field(
-                    name=f"\u200B",
+                    name="\u200B",
                     value=cfg.EVENT_TEMPLATE.format(
                         event["summary"],
                         event["location"],
@@ -71,7 +66,8 @@ class Calendar(commands.Cog):
             await ctx.send(embed=embed)
         except Exception as e:
             logging.error(e)
-            embed = discord.Embed(title=f"Erro ao listar os eventos", color=0xFF0000)
+            embed = discord.Embed(
+                title="Erro ao listar os eventos", color=0xFF0000)
             await ctx.send(embed=embed)
 
 

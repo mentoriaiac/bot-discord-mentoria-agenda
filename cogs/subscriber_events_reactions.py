@@ -1,8 +1,4 @@
-from discord.ext import tasks, commands
-from utils import config as cfg
-from utils.google_calendar import list_events
-from datetime import date, datetime
-from dateutil.parser import parse
+from discord.ext import commands
 import discord
 
 
@@ -42,8 +38,8 @@ class Calendar(commands.Cog):
                         description=f"**Obrigado, fique à vontade para participar do evento**: ```{calendar[0]}```",
                     )
                     embed.add_field(
-                        name=f"Descrição:",
-                        value=f"Nosso evento vai ocorrer no canal de voz do discord da MentoriaIac",
+                        name="Descrição:",
+                        value="Nosso evento vai ocorrer no canal de voz do discord da MentoriaIac",
                         inline=False,
                     )
                     await user.send(embed=embed)

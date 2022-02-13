@@ -3,8 +3,8 @@ from utils import config as cfg
 from utils.google_calendar import list_events
 from datetime import date
 from dateutil.parser import parse
-import discord, datetime
-from dateutil import tz
+import discord
+import datetime
 
 
 async def notify(channel):
@@ -17,8 +17,8 @@ async def notify(channel):
             title="📚 Agenda de Estudos :loudspeaker: ", description=data
         )
         embed.add_field(
-            name=f"**:cold_sweat: Sem Agenda**",
-            value=f"Use ```>criar_agenda```  e agende um estudo, bora aprender!! ",
+            name="**:cold_sweat: Sem Agenda**",
+            value="Use ```>criar_agenda```  e agende um estudo, bora aprender!! ",
             inline=False,
         )
         embed.set_footer(
@@ -37,7 +37,7 @@ async def notify(channel):
                 inline=False,
             )
             embed.add_field(
-                name=f"Descrição:", value=f"```{event['description']}``` ", inline=False
+                name="Descrição:", value=f"```{event['description']}``` ", inline=False
             )
             embed.set_footer(
                 text="Agenda: ✅ - Ativa - 🟥 - Cancelada(provavelmente já passou do horário)"
@@ -62,18 +62,16 @@ class Calendar(commands.Cog):
             dt = datetime.datetime.strptime(
                 str(event["date_time"]), "%Y-%m-%d %H:%M:%S%z"
             )
-            dt_now = datetime.datetime.now(tz=cfg.TZ).strftime("%Y-%m-%d %H:%M:%S%z")
-            dt_now = datetime.datetime.strptime(str(dt_now), "%Y-%m-%d %H:%M:%S%z")
+            dt_now = datetime.datetime.now(
+                tz=cfg.TZ).strftime("%Y-%m-%d %H:%M:%S%z")
+            dt_now = datetime.datetime.strptime(
+                str(dt_now), "%Y-%m-%d %H:%M:%S%z")
             event_date = datetime.datetime(
                 dt.year, dt.month, dt.day, dt.hour, 0, 00, 0, tzinfo=cfg.TZ
             )
             if event_date < dt_now:
                 pass
-        #         channel = self.bot.get_channel(cfg.notify_channel)
-        #         await notify(channel)
-        #         await self.bot.pg_con.execute("UPDATE events SET notified = true WHERE date_time = $1", event['date_time'])
-        #         self.bot.pg_con.commit()
-        # data = events[0]
-        # user_notify = await self.bot.pg_con.fetch("SELECT * FROM notifications WHERE user_id = $1 AND message_id = $2 AND calendar_id = $3",  payload.user_id, payload.message_id, str(calendar_id[0]))
+
+
 def setup(bot):
     bot.add_cog(Calendar(bot))
