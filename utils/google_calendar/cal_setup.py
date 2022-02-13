@@ -14,8 +14,11 @@ def get_calendar_service():
         SERVICE_ACCOUNT_FILE, scopes=SCOPES)
     delegated_credentials = credentials.with_subject(SUBJECT)
 
-    if not credentials or not credentials.valid:
+    if credentials.valid is False or credentials is None:
         print("Credeciais google é invalida")
+        print(credentials.valid)
+    else:
+        print("Credeciais google é Valida")
 
     service = build('calendar', 'v3', credentials=delegated_credentials)
 
