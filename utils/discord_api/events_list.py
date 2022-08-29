@@ -1,6 +1,6 @@
 from utils import config as cfg
 import requests
-import json
+
 
 def list_events(id):
     """

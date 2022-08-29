@@ -7,8 +7,6 @@ bot = commands.Bot(command_prefix=cfg.config[0]['discord']['prefix'],
                    description='Bot para agendamento de estudos da Comunidade Mentoria IAC',
                    reconnect=True)
 
-
-
 @bot.event
 async def on_ready():
     print("Username: {0}\nID: {0.id}".format(bot.user))
