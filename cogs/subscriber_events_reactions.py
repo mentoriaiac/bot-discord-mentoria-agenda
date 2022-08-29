@@ -25,5 +25,6 @@ class Calendar(commands.Cog):
             )
             await user.send(embed=embed)
 
+
 def setup(bot):
     bot.add_cog(Calendar(bot))

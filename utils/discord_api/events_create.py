@@ -29,11 +29,10 @@ def create_event(name, description, start_time, image):
             'Content-Type': 'application/json',
         }
         response = requests.request("POST", url, headers=headers, data=payload)
-        
+
         return response
-    
+
     except Exception as e:
         print(f"Erro ao criar evento: {e}")
         print(url)
         return None
-    
