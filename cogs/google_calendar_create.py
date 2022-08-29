@@ -5,12 +5,11 @@ import re
 import asyncio
 from utils.google_calendar import create_event as event
 from utils import config as cfg
-from utils.discord_api import events_create, events_list
+from utils.discord_api import events_create
 import logging
 from dateutil.parser import parse
 import json
 import base64
-
 
 date_pattern = re.compile(
     "^data:[0-3]?[0-9].[0-3]?[0-9].(?:[0-9]{2})?[0-9]{2}$")

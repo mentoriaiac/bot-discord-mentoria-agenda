@@ -14,7 +14,6 @@ class Calendar(commands.Cog):
         emoji = payload.emoji
         if str(emoji) == "✅":
 
-
             embed = discord.Embed(
                 title="📚 Lembrete de estudo :loudspeaker: ",
                 description=f"**Obrigado, fique à vontade para participar do evento**: ```{message.content}```",
@@ -25,7 +24,6 @@ class Calendar(commands.Cog):
                 inline=False,
             )
             await user.send(embed=embed)
-
 
 def setup(bot):
     bot.add_cog(Calendar(bot))
