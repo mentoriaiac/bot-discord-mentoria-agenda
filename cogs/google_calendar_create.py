@@ -92,7 +92,7 @@ class Calendar(commands.Cog):
                 name="Local:", value=f"{res['location']} ", inline=False
             )
 
-            event_description=f"""
+            event_description = f"""
             {msg.content}\n Google Calendário - Mentoria IAC
             {res['htmlLink']}
             """
@@ -101,13 +101,13 @@ class Calendar(commands.Cog):
                 base64_encoded_data = base64.b64encode(image_file_data)
                 encoded_image = base64_encoded_data.decode('utf-8')
 
-            image_cover=f"data:image/png;base64,{encoded_image}"
+            image_cover = f"data:image/png;base64,{encoded_image}"
             res_discord_event = events_create.create_event(
                 msg.content, event_description, date.isoformat(), image_cover)
             if res_discord_event.status_code == 200:
                 print("Evento criado com sucesso!")
                 discord_event = json.loads(res_discord_event.text)
-                discord_guild= cfg.config[0]['discord']["guild"]
+                discord_guild = cfg.config[0]['discord']["guild"]
                 await ctx.send(f"https://discord.com/events/{discord_guild}/{discord_event['id']}")
 
             await ctx.message.delete()
