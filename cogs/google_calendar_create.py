@@ -8,7 +8,8 @@ from utils import config as cfg
 from utils.discord_api import events_create
 import logging
 from dateutil.parser import parse
-
+import json
+import base64
 
 date_pattern = re.compile(
     "^data:[0-3]?[0-9].[0-3]?[0-9].(?:[0-9]{2})?[0-9]{2}$")
@@ -90,24 +91,25 @@ class Calendar(commands.Cog):
             embed.add_field(
                 name="Local:", value=f"{res['location']} ", inline=False
             )
-            message_sent = await ctx.send(embed=embed)
-            dt = datetime.datetime.strptime(
-                str(res["start"]["dateTime"]), "%Y-%m-%dT%H:%M:%S%z"
-            )
 
+            event_description = f"""
+            {msg.content}\n Google Calendário - Mentoria IAC
+            {res['htmlLink']}
+            """
+            with open('cover.png', 'rb') as image_file:
+                image_file_data = image_file.read()
+                base64_encoded_data = base64.b64encode(image_file_data)
+                encoded_image = base64_encoded_data.decode('utf-8')
+
+            image_cover = f"data:image/png;base64,{encoded_image}"
             res_discord_event = events_create.create_event(
-                msg.content, msg.content, date.isoformat())
+                msg.content, event_description, date.isoformat(), image_cover)
             if res_discord_event.status_code == 200:
                 print("Evento criado com sucesso!")
+                discord_event = json.loads(res_discord_event.text)
+                discord_guild = cfg.config[0]['discord']["guild"]
+                await ctx.send(f"https://discord.com/events/{discord_guild}/{discord_event['id']}")
 
-            await self.bot.pg_con.execute(
-                "INSERT INTO events (message_id, calendar_id, date_time, event_name, event_link ) VALUES ($1, $2, $3, $4, $5)",
-                message_sent.id,
-                res["id"],
-                dt,
-                res["summary"],
-                res["htmlLink"],
-            )
             await ctx.message.delete()
 
         except events_create.requests.exceptions.RequestException as e:

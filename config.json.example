@@ -12,12 +12,5 @@
         "credentials": "key.json",
         "scopes": "https://www.googleapis.com/auth/calendar",
         "subject": "user_id@project_id.iam.gserviceaccount.com"
-    },
-    "postgres": {
-        "user": "postgres",
-        "password": "password",
-        "database": "database",
-        "host": "127.0.0.1"
     }
-
 }]
